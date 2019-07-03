@@ -1,0 +1,73 @@
+﻿@model IEnumerable<RogalskiJaroslaw.Orders>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Orders</h1>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by number, comment or origin: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Order Number", "Index", new { sortOrder = ViewBag.NumberSortParam })
+            </th>
+            <th>
+                @Html.ActionLink("Order Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+
+            </th>
+            <th>
+                @Html.ActionLink("Order Comments", "Index", new { sortOrder = ViewBag.CommentsSortParam })
+
+            </th>
+            <th>
+                @Html.ActionLink("Order Origin", "Index", new { sortOrder = ViewBag.OriginSortParam })
+
+            </th>
+            <th>
+                @Html.ActionLink("Estimated Delivery", "Index", new { sortOrder = ViewBag.DeliverySortParam })
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderComments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderOrigin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstimatedDelivery)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
